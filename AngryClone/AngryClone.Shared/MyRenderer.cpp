@@ -18,7 +18,9 @@ ps_indexCount(0),
 m_tracking(false),
 m_deviceResources(deviceResources),
 modelPath(model),
-texturePath(texture)
+texturePath(texture),
+TotalDeltaX(0),
+TotalDeltaY(0)
 {
 	CreateDeviceDependentResources();
 	CreateWindowSizeDependentResources();
@@ -65,8 +67,8 @@ void MyRenderer::CreateWindowSizeDependentResources()
 	
 
 	// Eye is at (0,0.7,1.5), looking at point (0,-0.1,0) with the up-vector along the y-axis.
-	static const XMVECTORF32 eye = { -20.7445, 15.8395, -20.471, 0 };//{ -12.0f, 15.0f, -40.f, 0.f };//{ -30.0f, 0.7f, -30.0f, 0.0f };
-	static const XMVECTORF32 at = { 2.55, 5, -5.515, 0 };//{ -12.0f, 12.0f, 0.0f, 0.0f };
+	static const XMVECTORF32 eye = { 6.0f, 15.0f, 30.f, 0.f };//{ -30.0f, 0.7f, -30.0f, 0.0f };
+	static const XMVECTORF32 at = { 6.0f, 12.0f, 0.0f, 0.0f };
 	static const XMVECTORF32 up = { 0.0f, 1.0f, 0.0f, 0.0f };
 
 	XMStoreFloat4x4(&m_constantBufferData.view, XMMatrixTranspose(XMMatrixLookAtRH(eye, at, up)));
@@ -102,18 +104,23 @@ void MyRenderer::StartTracking()
 }
 
 // When tracking, the 3D cube can be rotated around its Y axis by tracking pointer position relative to the output screen width.
-void MyRenderer::TrackingUpdate(float positionX)
+void MyRenderer::TrackingUpdate(float* positionDelta)
 {
 	if (m_tracking)
 	{
-		float radians = XM_2PI * 2.0f * positionX / m_deviceResources->GetOutputSize().Width;
-		Rotate(radians);
+		this->TotalDeltaX -= positionDelta[0];
+		this->TotalDeltaY += positionDelta[1];
 	}
 }
 
 void MyRenderer::StopTracking()
 {
 	m_tracking = false;
+	this->Objects.at(Objects.size() - 1)->deltaX = TotalDeltaX;
+	this->Objects.at(Objects.size() - 1)->deltaY = TotalDeltaY;
+
+	TotalDeltaX = 0.0f;
+	TotalDeltaY = 0.0f;
 }
 
 // Renders one frame using the vertex and pixel shaders.
@@ -124,9 +131,9 @@ void MyRenderer::Render()
 
 	auto m_d3dContext = m_deviceResources->GetD3DDeviceContext();
 
- 	/*for (auto& cube : m_cubes)
-	{*/
-		//XMStoreFloat4x4(&m_constantBufferData.model, HeightMap->m_modelMatrix);
+ 	for (auto& obj : Objects)
+	{
+		XMStoreFloat4x4(&m_constantBufferData.model, obj->m_modelMatrix);
 
 		concurrency::critical_section::scoped_lock lk(m_deviceResources->devCtxCs);
 		m_d3dContext->UpdateSubresource(
@@ -193,7 +200,7 @@ void MyRenderer::Render()
 			0,
 			0
 			);
-	//}
+	}
 	
 	
 }
@@ -376,8 +383,9 @@ void MyRenderer::ReleaseDeviceDependentResources()
 
 }
 
-Cube^ MyRenderer::CreateHeightMap()
+Cube^ MyRenderer::CreateObject()
 {
-	HeightMap = ref new Cube();
-	return HeightMap;
+	auto object = ref new Cube();
+	this->Objects.push_back(object);
+	return object;
 }

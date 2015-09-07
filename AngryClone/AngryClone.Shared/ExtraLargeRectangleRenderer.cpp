@@ -62,8 +62,8 @@ void ExtraLargeRectangleRenderer::CreateWindowSizeDependentResources()
 		);
 
 	// Eye is at (0,0.7,1.5), looking at point (0,-0.1,0) with the up-vector along the y-axis.
-	static const XMVECTORF32 eye = { 37.5, 25, 30, 0 };//{ -12.0f, 15.0f, -40.f, 0.f };//{ -30.0f, 0.7f, -30.0f, 0.0f };
-	static const XMVECTORF32 at = { 10, 0, 10, 0 };//{ -12.0f, 12.0f, 0.0f, 0.0f };//
+	static const XMVECTORF32 eye = { 6.0f, 15.0f, 30.f, 0.f };//{ -30.0f, 0.7f, -30.0f, 0.0f };
+	static const XMVECTORF32 at = { 6.0f, 12.0f, 0.0f, 0.0f };//{ -12.0f, 12.0f, 0.0f, 0.0f };//
 	static const XMVECTORF32 up = { 0.0f, 1.0f, 0.0f, 0.0f };
 
 	/*static const XMVECTORF32 eye = { 10.1f, 0.2f, 3.625f, 0.0f };
@@ -110,9 +110,9 @@ void ExtraLargeRectangleRenderer::Render()
 	//concurrency::critical_section::scoped_lock lk(m_deviceResources->devCtxCs);
 	auto context = m_deviceResources->GetD3DDeviceContext();
 
-	//for (auto& rect : Rectangles)
-	//{
-	//		XMStoreFloat4x4(&m_constantBufferData.model, rect->m_modelMatrix);
+	for (auto& rect : Rectangles)
+	{
+			XMStoreFloat4x4(&m_constantBufferData.model, rect->m_modelMatrix);
 
 
 		// Prepare the constant buffer to send it to the graphics device.
@@ -186,7 +186,7 @@ void ExtraLargeRectangleRenderer::Render()
 			0,
 			0
 			);
-	//}
+	}
 }
 
 void ExtraLargeRectangleRenderer::CreateDeviceDependentResources()

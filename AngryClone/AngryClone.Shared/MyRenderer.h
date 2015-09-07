@@ -20,7 +20,7 @@
 		void Update(DX::StepTimer const& timer);
 		void Render();
 		void StartTracking();
-		void TrackingUpdate(float positionX);
+		void TrackingUpdate(float* objectPosition);
 		void StopTracking();
 		bool IsTracking() { return m_tracking; }
 		
@@ -54,11 +54,12 @@
 		wchar_t* texturePath;
 		int singleRotator;
 
-		
+		float TotalDeltaX;
+		float TotalDeltaY;
 	
 	public:
-		Cube^ CreateHeightMap();
-		Cube^ HeightMap;
+		Cube^ CreateObject();
+		vector<Cube^> Objects;
 		char* modelPath;
 		
 	};

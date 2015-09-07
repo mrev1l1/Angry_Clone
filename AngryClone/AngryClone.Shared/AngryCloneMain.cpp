@@ -16,28 +16,43 @@ m_deviceResources(deviceResources), m_pointerLocationX(nullptr), m_level(std::un
 
 	// TODO: Replace this with your app's content initialization.
 
-	/*this->SmallRectanglesRenderer = new SmallRectangleRenderer(m_deviceResources, "C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\optimizedTerrain\\ammo_platform.txt");
-	this->FirstPlatformRenderer = new SmallRectangleRenderer(m_deviceResources, "C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\optimizedTerrain\\platform1.txt");
+	this->SmallRectanglesRenderer = new MyRenderer(m_deviceResources, "C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\Level_0.1\\small.txt", L"C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\textures\\eye.dds");
+	/*this->FirstPlatformRenderer = new SmallRectangleRenderer(m_deviceResources, "C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\optimizedTerrain\\platform1.txt");
 	this->SecondPlatformRenderer = new SmallRectangleRenderer(m_deviceResources, "C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\optimizedTerrain\\platform2.txt");
-	*/this->NormallRectanglesRenderer = new NormallRectangleRenderer(m_deviceResources);
+	*/this->NormallRectanglesRenderer = new MyRenderer(m_deviceResources, "C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\Level_0.1\\normal.txt", L"C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\textures\\eye.dds");
+	this->ExtraLargeRectanglesRenderer = new MyRenderer(m_deviceResources, "C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\Level_0.1\\extraLarge.txt", L"C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\textures\\eye.dds");
+	this->Terrain = new ExtraLargeRectangleRenderer(m_deviceResources, "C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\rock2.txt", L"C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\terrain\\water..ish.dds");
+	this->CubesRenderer = new MyRenderer(m_deviceResources, "C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\Level_0.1\\box.txt", L"C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\textures\\eye.dds");
+	this->VillainsRenderer = new MyRenderer(m_deviceResources, "C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\Level_0.1\\villain.txt", L"C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\Level_0.1\\villain.dds");
+	this->AmmoRenderer = new MyRenderer(m_deviceResources, "C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\eggModel_1.txt", L"C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\textures\\ammo.dds");
+	this->LargeRectanglesRenderer = new MyRenderer(m_deviceResources, "C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\Level_0.1\\large.txt", L"C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\textures\\eye.dds");
 
 	/*this->SmallRectanglesRenderer1 = new SmallRectangleRenderer(m_deviceResources, "C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\normallRectangleModel.txt");
-	this->LargeRectanglesRenderer = new LargeRectangleRenderer(m_deviceResources);
-	this->ExtraLargeRectanglesRenderer = new MyRenderer(m_deviceResources, "C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\extraLargeRectangleModel.txt");
+	
+	
 	SphereRenderer = new PseudoSphereRenderer(m_deviceResources);
-this->Terrain = new ExtraLargeRectangleRenderer(m_deviceResources, "C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\sky\\sky.txt", L"C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\terrain\\water..ish.dds");
+
 */
-	this->CubesRenderer = new MyRenderer(m_deviceResources, "C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\newTerrain\\Model.txt", L"C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\terrain\\text.dds");
+	//this->CubesRenderer = new MyRenderer(m_deviceResources, "C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\optimizedTerrain\\HM_t.txt", L"C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\terrain\\text.dds");
 	//this->AmmunitionRenderer = new AmmoRenderer(m_deviceResources, "C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\eggModel_1copy.txt", L"C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\textures\\egg.dds");
 
-	//m_level->InitialiseExtraLargeRectangles(CubesRenderer);
+	//;
 	//m_level->InitialiseAmmo(this->AmmunitionRenderer);
 //m_level->Initialise(SphereRenderer);
-	//m_level->InitialiseSmallRectangles(SmallRectanglesRenderer);
+	//
 	//m_level->InitialiseNormallRectangles(SmallRectanglesRenderer1);
-	m_level->InitialiseNormallRectangles(NormallRectanglesRenderer);
-	/*m_level->InitialiseLargeRectangles(LargeRectanglesRenderer);
+	
+	m_level->InitialiseTerrain(Terrain);
+	m_level->InitialiseTerrain();
+	m_level->InitialiseSmallRectangles(SmallRectanglesRenderer);
+	m_level->InitialiseLargeRectangles(LargeRectanglesRenderer);
+	m_level->InitialiseNormalRectangles(NormallRectanglesRenderer);
 	m_level->InitialiseExtraLargeRectangles(ExtraLargeRectanglesRenderer);
+	m_level->InitialiseBoxes(CubesRenderer);
+	m_level->InitialiseVillains(VillainsRenderer);
+	m_level->InitialiseAmmo(AmmoRenderer);
+	
+	/*
 	
 	
 	
@@ -62,19 +77,25 @@ AngryCloneMain::~AngryCloneMain()
 void AngryCloneMain::CreateWindowSizeDependentResources() 
 {
 	// TODO: Replace this with the size-dependent initialization of your app's content.
-//this->CubesRenderer->CreateWindowSizeDependentResources();
-	/*this->SmallRectanglesRenderer->CreateWindowSizeDependentResources();
+	/*
 	this->FirstPlatformRenderer->CreateWindowSizeDependentResources();
 	this->SecondPlatformRenderer->CreateWindowSizeDependentResources();*/
-	this->NormallRectanglesRenderer->CreateWindowSizeDependentResources();
+
+	
+this->NormallRectanglesRenderer->CreateWindowSizeDependentResources();
+this->SmallRectanglesRenderer->CreateWindowSizeDependentResources();
+Terrain->CreateWindowSizeDependentResources();
+VillainsRenderer->CreateWindowSizeDependentResources();
+AmmoRenderer->CreateWindowSizeDependentResources();
+this->CubesRenderer->CreateWindowSizeDependentResources();
+this->LargeRectanglesRenderer->CreateWindowSizeDependentResources();
+this->ExtraLargeRectanglesRenderer->CreateWindowSizeDependentResources();
 //	this->AmmunitionRenderer->CreateWindowSizeDependentResources();
 	/*this->SmallRectanglesRenderer1->CreateWindowSizeDependentResources();
-	this->LargeRectanglesRenderer->CreateWindowSizeDependentResources();
-	this->ExtraLargeRectanglesRenderer->CreateWindowSizeDependentResources();
 	
 	
 	
-Terrain->CreateWindowSizeDependentResources();
+	
 
 SphereRenderer->CreateWindowSizeDependentResources();*/
 }
@@ -123,14 +144,15 @@ void AngryCloneMain::Update()
 		// TODO: Replace this with your app's content update functions.
 
 		m_level->Update();
+		//Terrain->Update(m_timer);
 		//this->SmallRectanglesRenderer->Update(m_timer);
 		//this->FirstPlatformRenderer->Update(m_timer);
 		//this->SecondPlatformRenderer->Update(m_timer);
-		this->CubesRenderer->Update(m_timer);
+		//this->CubesRenderer->Update(m_timer);
 		//
 		/*this->SmallRectanglesRenderer1->Update(m_timer);
 		
-		Terrain->Update(m_timer);
+		
 
 		this->NormallRectanglesRenderer->Update(m_timer);
 		this->LargeRectanglesRenderer->Update(m_timer);
@@ -143,28 +165,45 @@ void AngryCloneMain::Update()
 
 		if (this->m_level->IsAmmoLost == true)
 		{
-		/*	delete this->AmmunitionRenderer;
-			this->AmmunitionRenderer = new AmmoRenderer(m_deviceResources, "C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\eggModel_1copy.txt", L"C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\textures\\egg.dds");
-			m_level->ReinitialiseAmmo(this->AmmunitionRenderer);
-			this->AmmunitionRenderer->CreateWindowSizeDependentResources();
-			this->AmmunitionRenderer->CreateDeviceDependentResources();
+			delete this->AmmoRenderer;
+			this->AmmoRenderer = new MyRenderer(m_deviceResources, "C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\eggModel_1.txt", L"C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\textures\\ammo.dds");
+			m_level->ReinitialiseAmmo(this->AmmoRenderer);
+			this->AmmoRenderer->CreateWindowSizeDependentResources();
+			this->AmmoRenderer->CreateDeviceDependentResources();
 
-			this->m_level->IsAmmoLost = false;*/
+			this->m_level->IsAmmoLost = false;
 		}
 
-	/*	this->SmallRectanglesRenderer->Render();
+		//Разрушаемость - не решена
+	/*	if (this->m_level->objToDelete > 0)
+		{
+			int t = this->m_level->objToDelete;
+			if (this->m_level->objToDelete > 2 && this->m_level->objToDelete < this->m_level->objQuantity - 2)
+				this->CubesRenderer->Objects.erase(CubesRenderer->Objects.begin() + this->m_level->objToDelete - 3);
+			else
+				this->VillainsRenderer->Objects.erase(VillainsRenderer->Objects.begin());
+
+			this->m_level->objToDelete = 0;
+		}*/
+
+	/*	;
 		this->FirstPlatformRenderer->Render();
 		this->SecondPlatformRenderer->Render();*/
-		this->CubesRenderer->Render();
+		
 		this->NormallRectanglesRenderer->Render();
+		this->SmallRectanglesRenderer->Render();
+Terrain->Render();
+this->CubesRenderer->Render();
+VillainsRenderer->Render();
+this->AmmoRenderer->Render();
+this->LargeRectanglesRenderer->Render();
+this->ExtraLargeRectanglesRenderer->Render();
 	//	this->AmmunitionRenderer->Render();
 		/*this->SmallRectanglesRenderer1->Render();
-		this->LargeRectanglesRenderer->Render();
-		this->ExtraLargeRectanglesRenderer->Render();
+		
 		SphereRenderer->Render();
 	    
-		
-Terrain->Render();*/
+		*/
 		//m_renderer->Present(); // This call is synchronized to the display frame rate.
 	});
 }
@@ -208,20 +247,26 @@ bool AngryCloneMain::Render()
 	// Render the scene objects.
 	// TODO: Replace this with your app's content rendering functions.
 
-	this->CubesRenderer->Render();
-	/*this->SmallRectanglesRenderer->Render();
+	
+	/*
 	this->FirstPlatformRenderer->Render();
 	this->SecondPlatformRenderer->Render();*/
 	this->NormallRectanglesRenderer->Render();
-	//AmmunitionRenderer->Render();
+this->SmallRectanglesRenderer->Render();
+Terrain->Render();
+this->CubesRenderer->Render();
+VillainsRenderer->Render();
+AmmoRenderer->Render();
+this->LargeRectanglesRenderer->Render();
+this->ExtraLargeRectanglesRenderer->Render();
+
 	/*this->SmallRectanglesRenderer1->Render();
-	this->LargeRectanglesRenderer->Render();
+	
 	this->ExtraLargeRectanglesRenderer->Render();
 	
 	SphereRenderer->Render();
 	
-	
-Terrain->Render();*/
+	*/
 	return true;
 }
 

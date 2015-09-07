@@ -23,15 +23,20 @@ public:
 	void InitialiseTerrain(ExtraLargeRectangleRenderer* cubeRenderer);
 	void Initialise(PseudoSphereRenderer* sphereRenderer);
 
-	void InitialiseSmallRectangles(SmallRectangleRenderer* smallRectanglesRenderer);
-	void InitialiseNormallRectangles(NormallRectangleRenderer* normallRectanglesRenderer);
-	void InitialiseNormallRectangles(SmallRectangleRenderer* normallRectanglesRenderer);
-	void InitialiseLargeRectangles(LargeRectangleRenderer* largeRectanglesRenderer);
-	void InitialiseExtraLargeRectangles(MyRenderer* extraLargeRectanglesRenderer);
+	
+//	void InitialiseNormallRectangles(SmallRectangleRenderer* normallRectanglesRenderer);
 	void InitialiseCubes(MyRenderer* cubesRenderer);
-	void InitialiseAmmo(AmmoRenderer* ammoRenderer);
-	void ReinitialiseAmmo(AmmoRenderer* ammoRenderer);
+	void InitialiseAmmo(MyRenderer* ammoRenderer);
+	void ReinitialiseAmmo(MyRenderer* ammoRenderer);
 	void deleteTarget(short targetIndex);
+
+	void InitialiseSmallRectangles(MyRenderer* smallRectanglesRenderer);
+	void InitialiseLargeRectangles(MyRenderer* largeRectanglesRenderer);
+	void InitialiseNormalRectangles(MyRenderer* normalRectanglesRenderer);
+	void InitialiseExtraLargeRectangles(MyRenderer* extraLargeRectanglesRenderer);
+	void InitialiseBoxes(MyRenderer* renderer);
+	void InitialiseVillains(MyRenderer* renderer);
+	void InitialiseTerrain();
 
 	void Update();
 	
@@ -43,13 +48,20 @@ public:
 
 	float heightfield[64];
 	bool IsAmmoLost;
+	/*int objToDelete;
+	int objQuantity;*/
 private:
 	Physics m_physics;
 	std::vector<Cube^> m_cubes;
 	std::vector<PseudoSphere^> Enemies;
 	std::vector<Ammo^> CurrentAmmo;
-	PseudoSphereRenderer* targetRenderer;
+	MyRenderer* targetRenderer;
 
+	//Cube^ ObjToDelete;
+
+	/*btIndexedMesh* indexedMesh;
+	unsigned char* IndexBase;
+	unsigned char* vertexBase;*/
 	
 };
 

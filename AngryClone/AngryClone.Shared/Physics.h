@@ -1,7 +1,6 @@
 #pragma once
 #include <btBulletCollisionCommon.h>
 #include <btBulletDynamicsCommon.h>
-
 class Physics
 {
 public:
@@ -28,5 +27,7 @@ public:
 	bool IsDestroyed;
 	short TickCount;
 	short DestroyedIndex;
+	/*btTransform objToDelete;
+	btMotionState* Obj;*/
 };
 

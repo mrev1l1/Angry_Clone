@@ -7,7 +7,7 @@ CubeMotionState::CubeMotionState(Cube^ cube, const btTransform &initialTransform
 	m_cube(cube),
 	m_initialTransform(initialTransform)
 {
-	this->setWorldTransform(m_initialTransform);
+	//this->setWorldTransform(m_initialTransform);
 }
 
 CubeMotionState::~CubeMotionState(void)

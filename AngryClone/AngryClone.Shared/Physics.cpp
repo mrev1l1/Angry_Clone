@@ -60,32 +60,40 @@ Physics::~Physics(void)
 void Physics::Update()
 {
 	m_dynamicsWorld->stepSimulation(1 / 60.f, 10);
-
-//	for (int i = 2; i < 5; i++)
+//Разрушаемость - не решена
+	//auto AmmoObjectForContactTest = m_dynamicsWorld->getCollisionObjectArray().at(m_dynamicsWorld->getCollisionObjectArray().size() - 1);
+	//int objectQuantity = m_dynamicsWorld->getCollisionObjectArray().size();
+	
+	
+//	for (int i = 2; i < objectQuantity - 2; i++) // первые объекты - земля и платформы, последний - "оружие"
 //	{
-//	
-//	m_dynamicsWorld->contactPairTest(m_dynamicsWorld->getCollisionObjectArray().at(m_dynamicsWorld->getCollisionObjectArray().size() - i), m_dynamicsWorld->getCollisionObjectArray().at(m_dynamicsWorld->getCollisionObjectArray().size() - 1), result);
-//	if (result.m_connected == true){
-//		test++;
-//		btVector3 objectVelocityVector = this->m_rigidBodies.at(m_rigidBodies.size() - i)->getVelocityInLocalPoint(btVector3(0.2f, 0.2f, 0.2f));
-//		btScalar objectVelocity = sqrt(objectVelocityVector.getX() * objectVelocityVector.getX() +
-//			objectVelocityVector.getY() * objectVelocityVector.getY() +
-//			objectVelocityVector.getZ() * objectVelocityVector.getZ());
+//		/*auto ObjectForContactTest = m_dynamicsWorld->getCollisionObjectArray().at(m_dynamicsWorld->getCollisionObjectArray().size() - i);
 //
-//		if (objectVelocity > 4.0f)
+//		m_dynamicsWorld->contactPairTest(ObjectForContactTest, AmmoObjectForContactTest, result);
+//		
+//		if (result.m_connected == true){*/
+//
+//			btVector3 objectVelocityVector = this->m_rigidBodies.at(m_rigidBodies.size() - i)->getVelocityInLocalPoint(btVector3(0.2f, 0.2f, 0.2f));
+//			btScalar objectVelocity = sqrt(objectVelocityVector.getX() * objectVelocityVector.getX() +
+//										objectVelocityVector.getY() * objectVelocityVector.getY() +
+//										objectVelocityVector.getZ() * objectVelocityVector.getZ());
+//
+//			if (objectVelocity > 4.0f && TickCount == 0 && IsDestroyed == false)
 //		{
 //			IsDestroyed = true;
-//			TickCount = 10;
-//			DestroyedIndex = -i + 1;
+//			TickCount = 5;
+//			DestroyedIndex = objectQuantity - i;
+//			break;
 //		}
 //		//auto force = this->m_rigidBodies.at(3)->();
-//	}
+//	//}
 //}
 
-	if (IsDestroyed && TickCount > 0)
-	{
-		TickCount--;
-	}
+ //	if (IsDestroyed && TickCount > 0)
+	//{
+	//	TickCount--;
+	//}
+
 }
 
 void myTickCallback(btDynamicsWorld *world, btScalar timeStep) {
@@ -117,7 +125,6 @@ void Physics::AddPhysicalObject(btCollisionShape* collisionShape, btMotionState*
 	auto groundRigidBody = new btRigidBody(groundRigidBodyCI);
 
 	m_dynamicsWorld->addRigidBody(groundRigidBody);
-	auto center = groundRigidBody->getCenterOfMassPosition();
 	m_shapes.push_back(std::unique_ptr<btCollisionShape>(collisionShape));
 	m_rigidBodies.push_back(std::unique_ptr<btRigidBody>(groundRigidBody));
 	states.push_back(std::unique_ptr<btMotionState>(motionState));

@@ -58,8 +58,8 @@ void NormallRectangleRenderer::CreateWindowSizeDependentResources()
 		);
 
 	// Eye is at (0,0.7,1.5), looking at point (0,-0.1,0) with the up-vector along the y-axis.
-	static const XMVECTORF32 eye = { -20.7445, 15.8395, -20.471, 0 };//{ -12.0f, 15.0f, -40.f, 0.f };//{ -30.0f, 0.7f, -30.0f, 0.0f };
-	static const XMVECTORF32 at = { 2.55, 5, -5.515, 0 };//{ -12.0f, 12.0f, 0.0f, 0.0f };
+	static const XMVECTORF32 eye = { -12.0f, 15.0f, 30.f, 0.f };//{ -30.0f, 0.7f, -30.0f, 0.0f };
+	static const XMVECTORF32 at = { -12.0f, 12.0f, 0.0f, 0.0f };
 	static const XMVECTORF32 up = { 0.0f, 1.0f, 0.0f, 0.0f };
 
 	/*static const XMVECTORF32 eye = { 10.1f, 0.2f, 3.625f, 0.0f };

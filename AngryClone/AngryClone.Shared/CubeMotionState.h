@@ -11,6 +11,7 @@ public:
 
 	virtual void getWorldTransform(btTransform &worldTransform) const;
 	virtual void setWorldTransform(const btTransform &worldTransform);
+	Cube^ getObj() { return m_cube; };
 private:
 	Cube^ m_cube;
 	btTransform m_initialTransform;

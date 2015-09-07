@@ -7,57 +7,30 @@
 #include "BulletCollision/CollisionShapes/btHeightfieldTerrainShape.h"
 #include "BulletCollision/CollisionShapes/btShapeHull.h";
 
-
+vector<btVector3>* Vertices;
+vector<unsigned short>* Indices;
 Level::Level(void) : IsAmmoLost(false)
 {
 	btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, -1, 0)));
 	auto groundShape = new btStaticPlaneShape(btVector3(0, 1, 0), 1);
 
 	m_physics.AddPhysicalObject(groundShape, groundMotionState, 0, btVector3(0, 0, 0));
-	
-	//btTriangleMesh* OriginalTriangleMesh  = new btTriangleMesh();// numTriangles, triangleIndexBase, triangleIndexStride, numVertices, vertexBase, vertexStride);
-	
-	ModelFileHandler* terrainModel = new ModelFileHandler("C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\newTerrain\\Model.txt", true);
-	vector<btVector3>* Vertices = terrainModel->getVerticesVeсtor();
-	vector<unsigned short>* Indices = terrainModel->getIndicesVector();
 
-	/*for (int i = 0; i < Indices->size(); i+=3)
-	{
-		OriginalTriangleMesh->addTriangle(Vertices->at(Indices->at(i)), Vertices->at(Indices->at(i+1)), Vertices->at(Indices->at(i+2)));
-	}*/
+	//btTriangleMesh* AmmoPlatform = new btTriangleMesh();// numTriangles, triangleIndexBase, triangleIndexStride, numVertices, vertexBase, vertexStride);
 
-	
-	//btConvexShape* NewStaticMesh = new btConvexTriangleMeshShape(OriginalTriangleMesh);
-	
-	btConvexHullShape* ConvexHull = new btConvexHullShape();
-	for (int i = 0; i < Vertices->size(); i++)
-	{
-		ConvexHull->addPoint(Vertices->at(i));
-	}
-	btShapeHull* hull = new btShapeHull(ConvexHull);
-	btScalar margin = ConvexHull->getMargin();
-	hull->buildHull(margin);
-	btConvexHullShape* simplifiedConvexShape = new btConvexHullShape(*hull->getVertexPointer(), hull->numVertices());
+	//ModelFileHandler* AmmoPlatformModel = new ModelFileHandler("C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\rock2.txt", true);
+	//vector<btVector3>* AmmoPlatformVertices = AmmoPlatformModel->getVerticesVeсtor();
+	//vector<unsigned short>* AmmoPlatformIndices = AmmoPlatformModel->getIndicesVector();
 
-	btDefaultMotionState* OriginalTriangleMeshMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, -1, 0)));
+	//for (int i = 0; i < AmmoPlatformIndices->size(); i += 3)
+	//{
+	//	AmmoPlatform->addTriangle(AmmoPlatformVertices->at(AmmoPlatformIndices->at(i)), AmmoPlatformVertices->at(AmmoPlatformIndices->at(i + 1)), AmmoPlatformVertices->at(AmmoPlatformIndices->at(i + 2)));
+	//}
 
-	m_physics.AddPhysicalObject(simplifiedConvexShape, OriginalTriangleMeshMotionState, 0, btVector3(0, 0, 0));
-/////////////
-//	btTriangleMesh* AmmoPlatform = new btTriangleMesh();// numTriangles, triangleIndexBase, triangleIndexStride, numVertices, vertexBase, vertexStride);
-//
-//	ModelFileHandler* AmmoPlatformModel = new ModelFileHandler("C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\optimizedTerrain\\ammo_platform.txt", true);
-//	vector<btVector3>* AmmoPlatformVertices = AmmoPlatformModel->getVerticesVeсtor();
-//	vector<unsigned short>* AmmoPlatformIndices = AmmoPlatformModel->getIndicesVector();
-//
-//	for (int i = 0; i < AmmoPlatformIndices->size(); i += 3)
-//	{
-//		AmmoPlatform->addTriangle(AmmoPlatformVertices->at(AmmoPlatformIndices->at(i)), AmmoPlatformVertices->at(AmmoPlatformIndices->at(i + 1)), AmmoPlatformVertices->at(AmmoPlatformIndices->at(i + 2)));
-//	}
-//
-//	btConvexShape* AmmoPlatformMesh = new btConvexTriangleMeshShape(AmmoPlatform);
-//	btDefaultMotionState* AmmoPlatformMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(-5.881, 8.8085, -20.633)));
-//
-//	m_physics.AddPhysicalObject(AmmoPlatformMesh, AmmoPlatformMotionState, 0, btVector3(0, 0, 0));
+	//btConvexShape* AmmoPlatformMesh = new btConvexTriangleMeshShape(AmmoPlatform);
+	//btDefaultMotionState* AmmoPlatformMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(-15.0f, 0.0f, -2.5f)));
+
+	//m_physics.AddPhysicalObject(AmmoPlatformMesh, AmmoPlatformMotionState, 0, btVector3(0, 0, 0));
 /////////////////
 //	btTriangleMesh* FirstPlatform = new btTriangleMesh();// numTriangles, triangleIndexBase, triangleIndexStride, numVertices, vertexBase, vertexStride);
 //
@@ -92,13 +65,13 @@ Level::Level(void) : IsAmmoLost(false)
 //	m_physics.AddPhysicalObject(SecondPlatformMesh, SecondPlatformMotionState, 0, btVector3(0, 0, 0));
 }
 
-void Level::InitialiseSmallRectangles(SmallRectangleRenderer* smallRectanglesRenderer)
+void Level::InitialiseSmallRectangles(MyRenderer* smallRectanglesRenderer)
 {
-	auto smallRect = smallRectanglesRenderer->CreateRectangle();
+	auto smallRect = smallRectanglesRenderer->CreateObject();
 	m_cubes.push_back(smallRect);
 
-	auto x = -18.0f;
-	auto y = 17.0f ;
+	auto x = 5.3f;
+	auto y = 9.5f ;
 	auto z = 0.0f;
 
 	auto fallShape = new btBoxShape(btVector3(btScalar(0.15), btScalar(0.5), btScalar(0.5)));
@@ -108,11 +81,11 @@ void Level::InitialiseSmallRectangles(SmallRectangleRenderer* smallRectanglesRen
 	fallShape->calculateLocalInertia(mass, fallInertia);
 	m_physics.AddPhysicalObject(fallShape, fallMotionState, mass, fallInertia);
 	///
-	auto smallRect_1 = smallRectanglesRenderer->CreateRectangle();
+	auto smallRect_1 = smallRectanglesRenderer->CreateObject();
 	m_cubes.push_back(smallRect_1);
 
-	x =  -18.0f;
-	y = 17 + 1.0f ;
+	x = 5.3f;
+	y = 11.5f;
 	z = 0.0f;
 
 	 auto fallShape_1 = new btBoxShape(btVector3(btScalar(0.15), btScalar(0.5), btScalar(0.5)));
@@ -121,12 +94,12 @@ void Level::InitialiseSmallRectangles(SmallRectangleRenderer* smallRectanglesRen
 	btVector3 fallInertia_1(0, 0, 0);
 	fallShape_1->calculateLocalInertia(mass_1, fallInertia_1);
 	m_physics.AddPhysicalObject(fallShape_1, fallMotionState_1, mass_1, fallInertia_1);
-	////
-	auto smallRect2 = smallRectanglesRenderer->CreateRectangle();
+	//////
+	auto smallRect2 = smallRectanglesRenderer->CreateObject();
 	m_cubes.push_back(smallRect2);
 
-	 x = -18 + 1.6f;
-	 y = 17 + 2.3f;
+	 x = 6.6f;
+	 y = 9.5f + 2.3f;
 	 z = 0.0f;
 
 	auto fallShape2 = new btBoxShape(btVector3(btScalar(0.15), btScalar(0.5), btScalar(0.5)));
@@ -137,13 +110,13 @@ void Level::InitialiseSmallRectangles(SmallRectangleRenderer* smallRectanglesRen
 	m_physics.AddPhysicalObject(fallShape2, fallMotionState2, mass2, fallInertia2);
 }
 
-void Level::InitialiseNormallRectangles(SmallRectangleRenderer* normallRectanglesRenderer)
+void Level::InitialiseNormalRectangles(MyRenderer* normallRectanglesRenderer)
 {
-	auto normallRect = normallRectanglesRenderer->CreateRectangle();
+	auto normallRect = normallRectanglesRenderer->CreateObject();
 	m_cubes.push_back(normallRect);
 
-	auto x = -18 + 1.0f;
-	auto y = 17.0f;
+	auto x = 6.3f;
+	auto y = 9.5f;
 	auto z = 0.0f;
 
 	auto fallShape = new btBoxShape(btVector3(btScalar(0.15), btScalar(1.0), btScalar(0.5)));
@@ -154,30 +127,13 @@ void Level::InitialiseNormallRectangles(SmallRectangleRenderer* normallRectangle
 	m_physics.AddPhysicalObject(fallShape, fallMotionState, mass, fallInertia);
 }
 
-void Level::InitialiseNormallRectangles(NormallRectangleRenderer* normallRectanglesRenderer)
+void Level::InitialiseLargeRectangles(MyRenderer* largeRectanglesRenderer)
 {
-	auto normallRect = normallRectanglesRenderer->CreateRectangle();
-	m_cubes.push_back(normallRect);
-
-	auto x =  -2.0f;
-	auto y = 18.0f ;
-	auto z = -10.0f;
-
-	auto fallShape = new btBoxShape(btVector3(btScalar(0.15), btScalar(1.0), btScalar(0.5)));
-	btMotionState* fallMotionState = new CubeMotionState(normallRect, btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
-	btScalar mass = 1;
-	btVector3 fallInertia(0, 0, 0);
-	fallShape->calculateLocalInertia(mass, fallInertia);
-	m_physics.AddPhysicalObject(fallShape, fallMotionState, mass, fallInertia);
-}
-
-void Level::InitialiseLargeRectangles(LargeRectangleRenderer* largeRectanglesRenderer)
-{
-	auto largeRect = largeRectanglesRenderer->CreateRectangle();
+	auto largeRect = largeRectanglesRenderer->CreateObject();
 	m_cubes.push_back(largeRect);
 
-	auto x =  -18 + 0.35f;
-	auto y = 17 + 2.0f;
+	auto x =  5.3f;
+	auto y = 11.5f;
 	auto z = 0.0f;
 
 	auto fallShape = new btBoxShape(btVector3(btScalar(1.5), btScalar(0.15), btScalar(0.5)));
@@ -187,11 +143,11 @@ void Level::InitialiseLargeRectangles(LargeRectangleRenderer* largeRectanglesRen
 	fallShape->calculateLocalInertia(mass, fallInertia);
 	m_physics.AddPhysicalObject(fallShape, fallMotionState, mass, fallInertia);
 	/////
-	auto largeRect1 = largeRectanglesRenderer->CreateRectangle();
+	auto largeRect1 = largeRectanglesRenderer->CreateObject();
 	m_cubes.push_back(largeRect1);
 
-	 x = -18 + 3.0f;
-	 y = 17 + 3.3f ;
+	 x = 6.6+1.4f;
+	 y = 9.5 + 3.3f ;
 	 z = 0.0f;
 
 	auto fallShape1 = new btBoxShape(btVector3(btScalar(1.5), btScalar(0.15), btScalar(0.5)));
@@ -202,35 +158,13 @@ void Level::InitialiseLargeRectangles(LargeRectangleRenderer* largeRectanglesRen
 	m_physics.AddPhysicalObject(fallShape1, fallMotionState1, mass1, fallInertia1);
 }
 
-void Level::InitialiseExtraLargeRectangles(MyRenderer* heightMapRenderer)
+void Level::InitialiseExtraLargeRectangles(MyRenderer* extraLargeRectanglesRenderer)
 {
-	auto heightMap = heightMapRenderer->CreateHeightMap();
-	btTriangleMesh* OriginalTriangleMesh = new btTriangleMesh();// numTriangles, triangleIndexBase, triangleIndexStride, numVertices, vertexBase, vertexStride);
-
-	ModelFileHandler* terrainModel = new ModelFileHandler("C:\\Users\\Олександр\\AppData\\Local\\Packages\\a5f5ffab-88e8-40fd-8e9e-80a2994ded96_kqgv1awp48cbp\\LocalState\\optimizedTerrain\\HM.txt", true);
-	vector<btVector3>* Vertices = terrainModel->getVerticesVeсtor();
-	vector<unsigned short>* Indices = terrainModel->getIndicesVector();
-
-	for (int i = 0; i < Indices->size(); i += 3)
-	{
-		OriginalTriangleMesh->addTriangle(Vertices->at(Indices->at(i)), Vertices->at(Indices->at(i + 1)), Vertices->at(Indices->at(i + 2)));
-	}
-
-
-	btConvexShape* NewStaticMesh = new btConvexTriangleMeshShape(OriginalTriangleMesh);
-
-	btMotionState* OriginalTriangleMeshMotionState = new CubeMotionState(heightMap,btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, -1, 0)));
-	btScalar mass = 0;
-	btVector3 fallInertia(0, 0, 0);
-	NewStaticMesh->calculateLocalInertia(mass, fallInertia);
-
-	m_physics.AddPhysicalObject(NewStaticMesh, OriginalTriangleMeshMotionState, mass, fallInertia);
-
-	/*auto extraLargeRect = extraLargeRectanglesRenderer->CreateCube();
+	auto extraLargeRect = extraLargeRectanglesRenderer->CreateObject();
 	m_cubes.push_back(extraLargeRect);
 
-	auto x = -18 + 4.2f;
-	auto y = 17 + 0.0f;
+	auto x = 5.3 + 3.2f;
+	auto y = 9.5f;
 	auto z = 0.0f;
 
 	auto fallShape = new btBoxShape(btVector3(btScalar(0.15), btScalar(1.65), btScalar(0.5)));
@@ -238,35 +172,32 @@ void Level::InitialiseExtraLargeRectangles(MyRenderer* heightMapRenderer)
 	btScalar mass = 1;
 	btVector3 fallInertia(0, 0, 0);
 	fallShape->calculateLocalInertia(mass, fallInertia);
-	m_physics.AddPhysicalObject(fallShape, fallMotionState, mass, fallInertia);*/
+	m_physics.AddPhysicalObject(fallShape, fallMotionState, mass, fallInertia);
 }
 
-void Level::InitialiseAmmo(AmmoRenderer* ammoRenderer)
+void Level::InitialiseAmmo(MyRenderer* ammoRenderer)
 {
-	void fillTriangleMesh(btTriangleMesh* item, char* filename);
+	auto newAmmo = ammoRenderer->CreateObject();
+	this->m_cubes.push_back(newAmmo);
 
-	auto newAmmo = ammoRenderer->CreateAmmo();
-	this->CurrentAmmo.push_back(newAmmo);
+	auto x = 17.25f;
+	auto y = 4.50f;
+	auto z = 0.0f;
 
-	auto x = 0.1625f; 
-	auto y = 8.118f;
-	auto z = 20.833f;
-
-	btVector3* EggPositions = new btVector3[1];
-	EggPositions[0] = btVector3(0, 0.0, 0);
-	/*new btVector3[3];
+	btVector3* EggPositions = new btVector3[3];
+	/*EggPositions[0] = btVector3(0, 0.0, 0);*/
 	EggPositions[0] = btVector3(0, 0.25, 0);
 	EggPositions[1] = btVector3(0, 1, 0);
-	EggPositions[2] = btVector3(0, 1.25, 0);*/
+	EggPositions[2] = btVector3(0, 1.25, 0);
 
-	btScalar* PartsRadiuses = new btScalar[1];
-	PartsRadiuses[0] = btScalar(1);/*new btScalar[3];
+	btScalar* PartsRadiuses = new btScalar[3];
+	/*PartsRadiuses[0] = btScalar(1);new btScalar[3];*/
 	PartsRadiuses[0] = btScalar(.5f);
 	PartsRadiuses[1] = btScalar(.25f);
-	PartsRadiuses[2] = btScalar(.125f);*/
+	PartsRadiuses[2] = btScalar(.125f);
 
-	btMultiSphereShape* eggAmmoShape = new btMultiSphereShape(EggPositions, PartsRadiuses, 1);
-	btMotionState* fallMotionState = new AmmoMotionState(newAmmo, btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
+	btMultiSphereShape* eggAmmoShape = new btMultiSphereShape(EggPositions, PartsRadiuses, 3);
+	btMotionState* fallMotionState = new CubeMotionState(newAmmo, btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
 	btScalar mass = 1.5f;
 	btVector3 fallInertia(0, 0, 0);
 	eggAmmoShape->calculateLocalInertia(mass, fallInertia);
@@ -274,11 +205,12 @@ void Level::InitialiseAmmo(AmmoRenderer* ammoRenderer)
 	auto p = eggAmmoShape->getSpherePosition(0);
 }
 
-void Level::ReinitialiseAmmo(AmmoRenderer* ammoRenderer)
+void Level::ReinitialiseAmmo(MyRenderer* ammoRenderer)
 {
-	this->CurrentAmmo.pop_back();
-	ammoRenderer->CurrentAmmo.pop_back();
+	this->m_cubes.pop_back();
+	//ammoRenderer->Objects.pop_back();
 
+	auto pos = m_physics.m_dynamicsWorld->getCollisionObjectArray();
 	btCollisionObject* obj = m_physics.m_dynamicsWorld->getCollisionObjectArray()[m_physics.m_dynamicsWorld->getCollisionObjectArray().size() - 1];
 	m_physics.m_dynamicsWorld->removeCollisionObject(obj);
 	delete obj;
@@ -290,11 +222,11 @@ void Level::ReinitialiseAmmo(AmmoRenderer* ammoRenderer)
 	m_physics.states.at(m_physics.states.size() - 1).release();
 	m_physics.states.pop_back();
 	////
-	auto newAmmo = ammoRenderer->CreateAmmo();
-	this->CurrentAmmo.push_back(newAmmo);
+	auto newAmmo = ammoRenderer->CreateObject();
+	this->m_cubes.push_back(newAmmo);
 
-	auto x = -35.05f;
-	auto y = 15 + 0.0f;
+	auto x = 17.25f;
+	auto y = 4.50f;
 	auto z = 0.0f;
 
 	btVector3* EggPositions = new btVector3[3];
@@ -308,7 +240,7 @@ void Level::ReinitialiseAmmo(AmmoRenderer* ammoRenderer)
 	PartsRadiuses[2] = btScalar(.125f);
 
 	btMultiSphereShape* eggAmmoShape = new btMultiSphereShape(EggPositions, PartsRadiuses, 3);
-	btMotionState* fallMotionState = new AmmoMotionState(newAmmo, btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
+	btMotionState* fallMotionState = new CubeMotionState(newAmmo, btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
 	btScalar mass = 1.5f;
 	btVector3 fallInertia(0, 0, 0);
 	eggAmmoShape->calculateLocalInertia(mass, fallInertia);
@@ -416,18 +348,170 @@ void Level::InitialiseCubes(MyRenderer* cubesRenderer)
 	//m_physics.AddPhysicalObject(fallShape5, fallMotionState5, mass5, fallInertia5);
 }
 
+void Level::InitialiseVillains(MyRenderer* renderer)
+{
+	auto villain1 = renderer->CreateObject();
+	m_cubes.push_back(villain1);
+
+	auto x = -10.0f;
+	auto y = 15.0f;
+	auto z = 0.0f;
+
+	auto villain1fallShape = new btBoxShape(btVector3(btScalar(0.5), btScalar(0.5), btScalar(0.5)));
+	btMotionState* villain1MotionState = new CubeMotionState(villain1, btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
+	btScalar mass1 = 1;
+	btVector3 fallInertia1(0, 0, 0);
+	villain1fallShape->calculateLocalInertia(mass1, fallInertia1);
+	m_physics.AddPhysicalObject(villain1fallShape, villain1MotionState, mass1, fallInertia1);
+	/////
+	auto villain2 = renderer->CreateObject();
+	m_cubes.push_back(villain2);
+
+	x = 5.3f + 2.0f;
+	y = 9.5f;
+	z = 0.0f;
+
+	auto villain2fallShape = new btBoxShape(btVector3(btScalar(0.5), btScalar(0.5), btScalar(0.5)));
+	btMotionState* villain2MotionState = new CubeMotionState(villain2, btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
+	mass1 = 1;
+	btVector3 fallInertia2(0, 0, 0);
+	villain1fallShape->calculateLocalInertia(mass1, fallInertia2);
+	m_physics.AddPhysicalObject(villain2fallShape, villain2MotionState, mass1, fallInertia2);
+}
+
+void Level::InitialiseBoxes(MyRenderer* renderer)
+{
+	auto box1 = renderer->CreateObject();
+	m_cubes.push_back(box1);
+
+	auto x = -6.0f;
+	auto y = 15.0f;
+	auto z = 0.0f;
+
+	auto box1fallShape = new btBoxShape(btVector3(btScalar(0.5), btScalar(0.5), btScalar(0.5)));
+	btMotionState* box1MotionState = new CubeMotionState(box1, btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
+	btScalar mass1 = 1;
+	btVector3 fallInertia1(0, 0, 0);
+	box1fallShape->calculateLocalInertia(mass1, fallInertia1);
+	m_physics.AddPhysicalObject(box1fallShape, box1MotionState, mass1, fallInertia1);
+	////
+	auto box2 = renderer->CreateObject();
+	m_cubes.push_back(box2);
+
+	x = -6.0f;
+	y = 16.0f;
+	z = 0.0f;
+
+	auto box2fallShape = new btBoxShape(btVector3(btScalar(0.5), btScalar(0.5), btScalar(0.5)));
+	btMotionState* box2MotionState = new CubeMotionState(box2, btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
+	btScalar mass2 = 1;
+	btVector3 fallInertia2(0, 0, 0);
+	box2fallShape->calculateLocalInertia(mass2, fallInertia2);
+	m_physics.AddPhysicalObject(box2fallShape, box2MotionState, mass2, fallInertia2);
+	/////
+	auto box3 = renderer->CreateObject();
+	m_cubes.push_back(box3);
+
+	x = -6.0f;
+	y = 17.0f;
+	z = 0.0f;
+
+	auto box3fallShape = new btBoxShape(btVector3(btScalar(0.5), btScalar(0.5), btScalar(0.5)));
+	btMotionState* box3MotionState = new CubeMotionState(box3, btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
+	btScalar mass3 = 1;
+	btVector3 fallInertia3(0, 0, 0);
+	box3fallShape->calculateLocalInertia(mass3, fallInertia3);
+	m_physics.AddPhysicalObject(box3fallShape, box3MotionState, mass3, fallInertia3);
+	//////
+	auto box4 = renderer->CreateObject();
+	m_cubes.push_back(box4);
+
+	x = -7.0f;
+	y = 15.0f;
+	z = 0.0f;
+
+	auto box4fallShape = new btBoxShape(btVector3(btScalar(0.5), btScalar(0.5), btScalar(0.5)));
+	btMotionState* box4MotionState = new CubeMotionState(box4, btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
+	btScalar mass4 = 1;
+	btVector3 fallInertia4(0, 0, 0);
+	box4fallShape->calculateLocalInertia(mass3, fallInertia4);
+	m_physics.AddPhysicalObject(box4fallShape, box4MotionState, mass4, fallInertia4);
+	/////////
+	auto box5 = renderer->CreateObject();
+	m_cubes.push_back(box5);
+
+	x = -7.0f;
+	y = 16.0f;
+	z = 0.0f;
+
+	auto box5fallShape = new btBoxShape(btVector3(btScalar(0.5), btScalar(0.5), btScalar(0.5)));
+	btMotionState* box5MotionState = new CubeMotionState(box5, btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
+	btScalar mass5 = 1;
+	btVector3 fallInertia5(0, 0, 0);
+	box5fallShape->calculateLocalInertia(mass5, fallInertia5);
+	m_physics.AddPhysicalObject(box5fallShape, box5MotionState, mass5, fallInertia5);
+	/////////
+	auto box6 = renderer->CreateObject();
+	m_cubes.push_back(box6);
+
+	x = -8.0f;
+	y = 15.0f;
+	z = 0.0f;
+
+	auto box6fallShape = new btBoxShape(btVector3(btScalar(0.5), btScalar(0.5), btScalar(0.5)));
+	btMotionState* box6MotionState = new CubeMotionState(box6, btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
+	btScalar mass6 = 1;
+	btVector3 fallInertia6(0, 0, 0);
+	box6fallShape->calculateLocalInertia(mass6, fallInertia6);
+	m_physics.AddPhysicalObject(box6fallShape, box6MotionState, mass6, fallInertia6);
+}
+
 void Level::InitialiseTerrain(ExtraLargeRectangleRenderer* cubeRenderer)
 {
 	auto smallRect = cubeRenderer->CreateRectangle();
 	m_cubes.push_back(smallRect);
 
-	auto x = -18.0f;
-	auto y = 0.0f;
+	auto x = 7.25f;
+	auto y = 9.50f;
 	auto z = 0.0f;
 
-	auto fallShape = new btBoxShape(btVector3(btScalar(7.50f), btScalar(8.50f), btScalar(2.50f)));
+	auto fallShape = new btBoxShape(btVector3(btScalar(4.0f), btScalar(.50f), btScalar(3.0f)));
 	btMotionState* fallMotionState = new CubeMotionState(smallRect, btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
-	btScalar mass = 1.0f;
+	btScalar mass = 0.0f;
+	btVector3 fallInertia(0, 0, 0);
+	fallShape->calculateLocalInertia(mass, fallInertia);
+	m_physics.AddPhysicalObject(fallShape, fallMotionState, mass, fallInertia);
+}
+
+void Level::InitialiseTerrain()
+{
+	auto x = -8.25f;
+	auto y = 14.50f;
+	auto z = 0.0f;
+
+	auto fallShape1 = new btBoxShape(btVector3(btScalar(2.50f), btScalar(.50f), btScalar(2.50f)));
+	btMotionState* fallMotionState1 = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
+	btScalar mass = 0.0f;
+	btVector3 fallInertia1(0, 0, 0);
+	fallShape1->calculateLocalInertia(mass, fallInertia1);
+	m_physics.AddPhysicalObject(fallShape1, fallMotionState1, mass, fallInertia1);
+	///////////
+	x = 17.25f;
+	y = 4.50f;
+	z = 0.0f;
+
+	auto fallShape2 = new btBoxShape(btVector3(btScalar(2.50f), btScalar(.50f), btScalar(2.50f)));
+	btMotionState* fallMotionState2 = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
+	btVector3 fallInertia2(0, 0, 0);
+	fallShape1->calculateLocalInertia(mass, fallInertia2);
+	m_physics.AddPhysicalObject(fallShape2, fallMotionState2, mass, fallInertia2);
+	/////
+	x = 7.25f;
+	y = 9.50f;
+	z = 0.0f;
+
+	auto fallShape = new btBoxShape(btVector3(btScalar(4.0f), btScalar(.50f), btScalar(3.0f)));
+	btMotionState* fallMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(x, y, z)));
 	btVector3 fallInertia(0, 0, 0);
 	fallShape->calculateLocalInertia(mass, fallInertia);
 	m_physics.AddPhysicalObject(fallShape, fallMotionState, mass, fallInertia);
@@ -437,14 +521,14 @@ void Level::Initialise(PseudoSphereRenderer* sphereRenderer)
 {
 	/*btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, -1, 0)));
 	auto groundShape = new btStaticPlaneShape(btVector3(0, 1, 0), 1);
-	m_physics.AddPhysicalObject(groundShape, groundMotionState, 0, btVector3(0, 0, 0));*/
+	m_physics.AddPhysicalObject(groundShape, groundMotionState, 0, btVector3(0, 0, 0));
 
 	this->targetRenderer = sphereRenderer;
 	auto pig1 = sphereRenderer->CreatePseudoSphere();
 	Enemies.push_back(pig1);
 
 	auto x = 25.7825f;// -18 + .05f;
-	auto y = 25;///*1*/37 + 2.3001f;
+	auto y = 25;///*1*//*37 + 2.3001f;
 	auto z = 17.621f;
 
 
@@ -454,10 +538,10 @@ void Level::Initialise(PseudoSphereRenderer* sphereRenderer)
 	btScalar mass1 = 1;
 	btVector3 fallInertia1(0, 0, 0);
 	fallShape1->calculateLocalInertia(mass1, fallInertia1);
-	m_physics.AddPhysicalObject(fallShape1, fallMotionState1, mass1, fallInertia1);
-	////
+	m_physics.AddPhysicalObject(fallShape1, fallMotionState1, mass1, fallInertia1);*/
+	
 	//auto pig2 = sphereRenderer->CreatePseudoSphere();
-	//Enemies.push_back(pig2);
+	//Enemies.push_back(pig2);*/
 
 	//x =  -18 + 2.55f;
 	// y = 17 + 0.0f ;
@@ -538,42 +622,47 @@ Level::~Level(void)
 
 void Level::Update()
 {
-	/*if (this->CurrentAmmo.at(CurrentAmmo.size() - 1)->updatedTransform != nullptr){
-		m_physics.m_rigidBodies.at(m_physics.m_rigidBodies.size() - 1)->setCenterOfMassTransform(*this->CurrentAmmo.at(CurrentAmmo.size() - 1)->updatedTransform);
-		this->CurrentAmmo.at(CurrentAmmo.size() - 1)->updatedTransform = nullptr;
-	}*/
+	
 	//Управление мышью
-	//if (this->CurrentAmmo.at(CurrentAmmo.size() - 1)->deltaX > 0.0f ||
-	//	this->CurrentAmmo.at(CurrentAmmo.size() - 1)->deltaY > 0.0f)
-	//{
-	//	m_physics.m_rigidBodies.at(m_physics.m_rigidBodies.size() - 1)->applyImpulse(btVector3(this->CurrentAmmo.at(CurrentAmmo.size() - 1)->deltaX / 100, this->CurrentAmmo.at(CurrentAmmo.size() - 1)->deltaY / 100, 0), btVector3(0.f, 1.5f, 0));
+	if (this->m_cubes.at(m_cubes.size() - 1)->deltaX > 0.0f ||
+		this->m_cubes.at(m_cubes.size() - 1)->deltaY > 0.0f)
+	{
+		m_physics.m_rigidBodies.at(m_physics.m_rigidBodies.size() - 1)->applyImpulse(btVector3(this->m_cubes.at(m_cubes.size() - 1)->deltaX / 100, this->m_cubes.at(m_cubes.size() - 1)->deltaY / 100, 0), btVector3(0.f, 1.5f, 0));
 
-	//	this->CurrentAmmo.at(CurrentAmmo.size() - 1)->deltaX = 0.0f;
-	//	this->CurrentAmmo.at(CurrentAmmo.size() - 1)->deltaY = 0.0f;
-	//}
-	////Удаление улетевших снарядов
-	//auto pos = m_physics.m_rigidBodies.at(m_physics.m_rigidBodies.size() - 1)->getCenterOfMassPosition();
-	//
-	//if (pos.getX() >= 27.0f)
-	//	IsAmmoLost = true;
+		this->m_cubes.at(m_cubes.size() - 1)->deltaX = 0.0f;
+		this->m_cubes.at(m_cubes.size() - 1)->deltaY = 0.0f;
+	}
+	//Удаление улетевших снарядов
+	auto pos = m_physics.m_rigidBodies.at(m_physics.m_rigidBodies.size() - 1)->getCenterOfMassPosition();
+	
+	if (pos.getX() <= -33.0f)
+		IsAmmoLost = true;
 
-	////Удаление разрушеных целей
+	//Удаление разрушеных целей //Разрушаемость - не решена
 	//if (m_physics.IsDestroyed && m_physics.TickCount == 0)
 	//{
 	//	short index = m_physics.DestroyedIndex;
-	//	this->Enemies.erase(Enemies.end() + index);
-	//	this->targetRenderer->Spheres.erase(targetRenderer->Spheres.end() + m_physics.DestroyedIndex);
+	//	objToDelete = m_physics.DestroyedIndex;
+	//	objQuantity = m_physics.m_dynamicsWorld->getCollisionObjectArray().size();
+	//	this->m_cubes.erase(m_cubes.end() - index);
 
-	//	btCollisionObject* obj = m_physics.m_dynamicsWorld->getCollisionObjectArray()[m_physics.m_dynamicsWorld->getCollisionObjectArray().size() + (index - 1)];
+	//	/*CubeMotionState* Obj = (CubeMotionState*)this->m_physics.Obj;
+	//	auto t = Obj->getObj();*/
+
+	//	//this->targetRenderer->Spheres.erase(targetRenderer->Spheres.end() + m_physics.DestroyedIndex);
+
+	//	int pos = m_physics.m_dynamicsWorld->getCollisionObjectArray().size() - (index);
+
+	//	btCollisionObject* obj = m_physics.m_dynamicsWorld->getCollisionObjectArray()[pos];
 	//	m_physics.m_dynamicsWorld->removeCollisionObject(obj);
 	//	delete obj;
 
-	//	m_physics.m_rigidBodies.at(m_physics.m_rigidBodies.size() + (index - 1)).release();
-	//	m_physics.m_rigidBodies.erase(m_physics.m_rigidBodies.end() + (index - 1));
-	//	m_physics.m_shapes.at(m_physics.m_shapes.size() + (index - 1)).release();
-	//	m_physics.m_shapes.erase(m_physics.m_shapes.end() + (index - 1));
-	//	m_physics.states.at(m_physics.states.size() + (index - 1)).release();
-	//	m_physics.states.erase(m_physics.states.end() + (index - 1));
+	//	m_physics.m_rigidBodies.at(m_physics.m_rigidBodies.size() - (index )).release();
+	//	m_physics.m_rigidBodies.erase(m_physics.m_rigidBodies.end() - (index ));
+	//	m_physics.m_shapes.at(m_physics.m_shapes.size() - (index )).release();
+	//	m_physics.m_shapes.erase(m_physics.m_shapes.end() - (index ));
+	//	m_physics.states.at(m_physics.states.size() - (index )).release();
+	//	m_physics.states.erase(m_physics.states.end() - (index ));
 
 	//	m_physics.IsDestroyed = false;
 	//}

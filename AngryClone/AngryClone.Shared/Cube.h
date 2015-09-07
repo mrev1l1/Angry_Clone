@@ -53,5 +53,7 @@ internal:
 	void SetTransform(const Transform^ transform);
 
 	DirectX::XMMATRIX m_modelMatrix;
+	float deltaX;
+	float deltaY;
 private:
 };

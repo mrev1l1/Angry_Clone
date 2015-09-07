@@ -10,12 +10,12 @@
 #include "Agile.h"
 #include <btBulletDynamicsCommon.h>
 #include "MyRenderer.h"
-#include "AmmoRenderer.h"
+//#include "AmmoRenderer.h"
 #include "PseudoSphereRenderer.h"
 #include "ExtraLargeRectangleRenderer.h"
-#include "LargeRectangleRenderer.h"
-#include "NormallRectangleRenderer.h"
-#include "SmallRectangleRenderer.h"
+//#include "LargeRectangleRenderer.h"
+//#include "NormallRectangleRenderer.h"
+//#include "SmallRectangleRenderer.h"
 
 // Renders Direct2D and 3D content on the screen.
 namespace AngryClone
@@ -26,10 +26,10 @@ namespace AngryClone
 		AngryCloneMain(const std::shared_ptr<DX::DeviceResources>& deviceResources);
 		~AngryCloneMain();
 		void CreateWindowSizeDependentResources();
-		void StartTracking() {/* AmmunitionRenderer->StartTracking();*/ }
-		void TrackingUpdate(float* positionX) { /*m_pointerLocationX = positionX; AmmunitionRenderer->TrackingUpdate(positionX);*/ }
-		void StopTracking() { /*AmmunitionRenderer->StopTracking();*/ }
-		bool IsTracking() { return false;/* AmmunitionRenderer->IsTracking(); */}
+		void StartTracking() { AmmoRenderer->StartTracking();}
+		void TrackingUpdate(float* positionX) { m_pointerLocationX = positionX; AmmoRenderer->TrackingUpdate(positionX); }
+		void StopTracking() { AmmoRenderer->StopTracking(); }
+		bool IsTracking() { return AmmoRenderer->IsTracking();  }
 		void StartRenderLoop();
 		void StopRenderLoop();
 		Concurrency::critical_section& GetCriticalSection() { return m_criticalSection; }
@@ -58,15 +58,15 @@ namespace AngryClone
 
 		MyRenderer* m_renderer;
 
-		SmallRectangleRenderer* SmallRectanglesRenderer;
-		SmallRectangleRenderer* SmallRectanglesRenderer1;
-		SmallRectangleRenderer* FirstPlatformRenderer;
-		SmallRectangleRenderer* SecondPlatformRenderer;
-		NormallRectangleRenderer* NormallRectanglesRenderer;
-		LargeRectangleRenderer* LargeRectanglesRenderer;
+		
+		MyRenderer* NormallRectanglesRenderer;
+		MyRenderer* LargeRectanglesRenderer;
 		MyRenderer* ExtraLargeRectanglesRenderer;
 		MyRenderer* CubesRenderer;
-		AmmoRenderer* AmmunitionRenderer;
+		MyRenderer* SmallRectanglesRenderer;
+		MyRenderer* VillainsRenderer;
+		MyRenderer* AmmoRenderer;
+		//AmmoRenderer* AmmunitionRenderer;
 		///
 		ExtraLargeRectangleRenderer* Terrain;
 		///
