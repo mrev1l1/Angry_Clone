@@ -29,51 +29,50 @@ MyContactResultCallback result;
 //END OF CALLBACK CODE
 
 Physics::Physics(void) :
-m_broadphase(new btDbvtBroadphase()),
-m_collisionConfiguration(new btDefaultCollisionConfiguration()),
-m_solver(new btSequentialImpulseConstraintSolver), test(0),
+Broadphase(new btDbvtBroadphase()),
+CollisionConfiguration(new btDefaultCollisionConfiguration()),
+ConstraintSolver(new btSequentialImpulseConstraintSolver),
 IsDestroyed(false),
 DestroyedIndex(0),
 TickCount(0)
 {
 	void myTickCallback(btDynamicsWorld *world, btScalar timeStep);
-	m_dispatcher = std::unique_ptr<btCollisionDispatcher>(new btCollisionDispatcher(m_collisionConfiguration.get()));
 
-	m_dynamicsWorld = std::unique_ptr<btDiscreteDynamicsWorld>(new btDiscreteDynamicsWorld(m_dispatcher.get(), m_broadphase.get(), m_solver.get(), m_collisionConfiguration.get()));
+	CollisionDispatcher = std::unique_ptr<btCollisionDispatcher>(new btCollisionDispatcher(CollisionConfiguration.get()));
+	DynamicsWorld = std::unique_ptr<btDiscreteDynamicsWorld>(new btDiscreteDynamicsWorld(CollisionDispatcher.get(), Broadphase.get(), ConstraintSolver.get(), CollisionConfiguration.get()));
 		
-	m_dynamicsWorld->setGravity(btVector3(0, -10, 0));
-
-	m_dynamicsWorld->setInternalTickCallback(myTickCallback, static_cast<void *>(this), true);
+	DynamicsWorld->setGravity(btVector3(0, -10, 0));
+	DynamicsWorld->setInternalTickCallback(myTickCallback, static_cast<void *>(this), true);
 }
 
 Physics::~Physics(void)
 {
-	for_each(begin(m_rigidBodies), end(m_rigidBodies), [&](const unique_ptr<btRigidBody>& rigidBody)
+	for_each(begin(RigidBodies), end(RigidBodies), [&](const unique_ptr<btRigidBody>& rigidBody)
 	{
-		m_dynamicsWorld->removeRigidBody(rigidBody.get());
+		DynamicsWorld->removeRigidBody(rigidBody.get());
 		delete rigidBody->getMotionState();
 	});
 
-	m_rigidBodies.clear();
+	RigidBodies.clear();
 }
 
 void Physics::Update()
 {
-	m_dynamicsWorld->stepSimulation(1 / 60.f, 10);
+	DynamicsWorld->stepSimulation(1 / 60.f, 10);
 //Разрушаемость - не решена
-	//auto AmmoObjectForContactTest = m_dynamicsWorld->getCollisionObjectArray().at(m_dynamicsWorld->getCollisionObjectArray().size() - 1);
-	//int objectQuantity = m_dynamicsWorld->getCollisionObjectArray().size();
+	//auto AmmoObjectForContactTest = DynamicsWorld->getCollisionObjectArray().at(DynamicsWorld->getCollisionObjectArray().size() - 1);
+	//int objectQuantity = DynamicsWorld->getCollisionObjectArray().size();
 	
 	
 //	for (int i = 2; i < objectQuantity - 2; i++) // первые объекты - земля и платформы, последний - "оружие"
 //	{
-//		/*auto ObjectForContactTest = m_dynamicsWorld->getCollisionObjectArray().at(m_dynamicsWorld->getCollisionObjectArray().size() - i);
+//		/*auto ObjectForContactTest = DynamicsWorld->getCollisionObjectArray().at(DynamicsWorld->getCollisionObjectArray().size() - i);
 //
-//		m_dynamicsWorld->contactPairTest(ObjectForContactTest, AmmoObjectForContactTest, result);
+//		DynamicsWorld->contactPairTest(ObjectForContactTest, AmmoObjectForContactTest, result);
 //		
 //		if (result.m_connected == true){*/
 //
-//			btVector3 objectVelocityVector = this->m_rigidBodies.at(m_rigidBodies.size() - i)->getVelocityInLocalPoint(btVector3(0.2f, 0.2f, 0.2f));
+//			btVector3 objectVelocityVector = this->RigidBodies.at(RigidBodies.size() - i)->getVelocityInLocalPoint(btVector3(0.2f, 0.2f, 0.2f));
 //			btScalar objectVelocity = sqrt(objectVelocityVector.getX() * objectVelocityVector.getX() +
 //										objectVelocityVector.getY() * objectVelocityVector.getY() +
 //										objectVelocityVector.getZ() * objectVelocityVector.getZ());
@@ -85,7 +84,7 @@ void Physics::Update()
 //			DestroyedIndex = objectQuantity - i;
 //			break;
 //		}
-//		//auto force = this->m_rigidBodies.at(3)->();
+//		//auto force = this->RigidBodies.at(3)->();
 //	//}
 //}
 
@@ -124,8 +123,8 @@ void Physics::AddPhysicalObject(btCollisionShape* collisionShape, btMotionState*
 	
 	auto groundRigidBody = new btRigidBody(groundRigidBodyCI);
 
-	m_dynamicsWorld->addRigidBody(groundRigidBody);
-	m_shapes.push_back(std::unique_ptr<btCollisionShape>(collisionShape));
-	m_rigidBodies.push_back(std::unique_ptr<btRigidBody>(groundRigidBody));
-	states.push_back(std::unique_ptr<btMotionState>(motionState));
+	DynamicsWorld->addRigidBody(groundRigidBody);
+	ObjectsCollisionShapes.push_back(std::unique_ptr<btCollisionShape>(collisionShape));
+	RigidBodies.push_back(std::unique_ptr<btRigidBody>(groundRigidBody));
+	ObjectsMotionStates.push_back(std::unique_ptr<btMotionState>(motionState));
 }

@@ -1,21 +1,12 @@
 ﻿#pragma once
 
-#include "Common\StepTimer.h"
-#include "Common\DeviceResources.h"
-#include "Content\Sample3DSceneRenderer.h"
-#include "Content\SampleFpsTextRenderer.h"
-
-
 #include "Level.h"
 #include "Agile.h"
+#include "Common\StepTimer.h"
+#include "SceneObjectRenderer.h"
+#include "Common\DeviceResources.h"
 #include <btBulletDynamicsCommon.h>
-#include "MyRenderer.h"
-//#include "AmmoRenderer.h"
-#include "PseudoSphereRenderer.h"
-#include "ExtraLargeRectangleRenderer.h"
-//#include "LargeRectangleRenderer.h"
-//#include "NormallRectangleRenderer.h"
-//#include "SmallRectangleRenderer.h"
+#include "Content\SampleFpsTextRenderer.h"
 
 // Renders Direct2D and 3D content on the screen.
 namespace AngryClone
@@ -47,34 +38,18 @@ namespace AngryClone
 		std::shared_ptr<DX::DeviceResources> m_deviceResources;
 
 		// TODO: Replace with your own content renderers.
-		std::unique_ptr<Sample3DSceneRenderer> m_sceneRenderer;
 		std::unique_ptr<SampleFpsTextRenderer> m_fpsTextRenderer;
-		std::unique_ptr<MyRenderer> my_sceneRenderer;
 	public:
-		std::unique_ptr<Level> m_level;
-
-		PseudoSphereRenderer* SphereRenderer;
-		PseudoSphere^ MySphere;
-
-		MyRenderer* m_renderer;
-
+		std::unique_ptr<Level> GameLevelPhysics;
+				
+		std::unique_ptr<SceneObjectRenderer> NormallRectanglesRenderer;
+		std::unique_ptr<SceneObjectRenderer> LargeRectanglesRenderer;
+		std::unique_ptr<SceneObjectRenderer> ExtraLargeRectanglesRenderer;
+		std::unique_ptr<SceneObjectRenderer> CubesRenderer;
+		std::unique_ptr<SceneObjectRenderer> SmallRectanglesRenderer;
+		std::unique_ptr<SceneObjectRenderer> VillainsRenderer;
+		std::unique_ptr<SceneObjectRenderer> AmmoRenderer;
 		
-		MyRenderer* NormallRectanglesRenderer;
-		MyRenderer* LargeRectanglesRenderer;
-		MyRenderer* ExtraLargeRectanglesRenderer;
-		MyRenderer* CubesRenderer;
-		MyRenderer* SmallRectanglesRenderer;
-		MyRenderer* VillainsRenderer;
-		MyRenderer* AmmoRenderer;
-		//AmmoRenderer* AmmunitionRenderer;
-		///
-		ExtraLargeRectangleRenderer* Terrain;
-		///
-
-		vector<Cube^> m_cubes;
-		vector<PseudoSphere^> Enemies;
-		vector<Ammo^> Ammunition;
-
 		Platform::Agile<Windows::ApplicationModel::Core::CoreApplicationView> m_applicationView;
 		bool m_windowClosed;
 

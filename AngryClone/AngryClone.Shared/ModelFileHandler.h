@@ -17,12 +17,12 @@ class ModelFileHandler
 	unsigned short* Indices;
 	long IndicesBufferSize;
 
-	vector<btVector3> VerticesVeñtor;
-	vector<unsigned short> IndicesVector;
+	std::vector<btVector3> VerticesVeñtor;
+	std::vector<unsigned short> IndicesVector;
 public:
-	ModelFileHandler(char* fileName);
-	ModelFileHandler(char* fileName, bool bullet);
-	ModelFileHandler(char* fileName, char tex);
+	ModelFileHandler(std::wstring fileName);
+	ModelFileHandler(std::wstring fileName, bool bullet);
+	ModelFileHandler(std::wstring fileName, char tex);
 	~ModelFileHandler();
 
 	AngryClone::VertexPositionColor* getVertices();
@@ -32,7 +32,7 @@ public:
 	long getVerticesBufferSize();
 	int getIndicesCount();
 
-	vector<btVector3>* getVerticesVeñtor();
-	vector<unsigned short>* getIndicesVector();
+	std::vector<btVector3>* getVerticesVeñtor();
+	std::vector<unsigned short>* getIndicesVector();
 };
 

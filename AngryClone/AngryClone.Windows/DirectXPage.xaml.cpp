@@ -213,25 +213,25 @@ void DirectXPage::OnKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::
 	if (pressedKey == L"Space")
 	{
 		//TODO make it jump!
- 		m_main->m_level->Punch();
+		m_main->GameLevelPhysics->Punch();
 	}
 	if (pressedKey == L"Up")
 	{
 		//TODO make it jump!
-		m_main->m_level->Kick();
+		m_main->GameLevelPhysics->Kick();
 	}
 	if (pressedKey == L"Left")
 	{
 		//TODO make it jump!
-		m_main->m_level->Left();
+		m_main->GameLevelPhysics->Left();
 	}
 	if (pressedKey == L"Right")
 	{
 		//TODO make it jump!
-		m_main->m_level->Right();
+		m_main->GameLevelPhysics->Right();
 	}if (pressedKey == L"Down")
 	{
 		//TODO make it jump!
-		m_main->m_level->Back();
+		m_main->GameLevelPhysics->Back();
 	}
 }

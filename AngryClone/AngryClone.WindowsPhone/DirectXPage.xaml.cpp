@@ -159,9 +159,13 @@ void DirectXPage::OnPointerPressed(Object^ sender, PointerEventArgs^ e)
 void DirectXPage::OnPointerMoved(Object^ sender, PointerEventArgs^ e)
 {
 	// Update the pointer tracking code.
+	std::unique_ptr<float> update(new float[2]);
+	update.get()[0] = e->CurrentPoint->Position.X;
+	update.get()[1] = e->CurrentPoint->Position.Y;
+
 	if (m_main->IsTracking())
 	{
-		m_main->TrackingUpdate(e->CurrentPoint->Position.X);
+		m_main->TrackingUpdate(update.get());
 	}
 }
 

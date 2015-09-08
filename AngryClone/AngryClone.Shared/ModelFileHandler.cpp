@@ -1,9 +1,9 @@
 #include "ModelFileHandler.h"
 #include <windows.h>
 
-ModelFileHandler::ModelFileHandler(char* fileName, bool bullet)
+ModelFileHandler::ModelFileHandler(std::wstring fileName, bool bullet)
 {
-	void parseLine(char* line, vector<btVector3>* vertice);
+	void parseLine(char* line, std::vector<btVector3>* vertice);
 
 	this->ModelFile = new std::fstream(fileName, std::ios_base::in);
 
@@ -40,12 +40,12 @@ ModelFileHandler::ModelFileHandler(char* fileName, bool bullet)
 				ModelFile->getline(buffer, 64);
 
 				char *nextToken = NULL;
-				this->IndicesVector.push_back(stoi(strtok_s(buffer, ",", &nextToken)));
+				this->IndicesVector.push_back(std::stoi(strtok_s(buffer, ",", &nextToken)));
 
 				int iteration = 2;
 				while (iteration > 0)
 				{
-					this->IndicesVector.push_back(stoi(strtok_s(NULL, ",", &nextToken)));
+					this->IndicesVector.push_back(std::stoi(strtok_s(NULL, ",", &nextToken)));
 					iteration--;
 				}
 			}
@@ -55,7 +55,7 @@ ModelFileHandler::ModelFileHandler(char* fileName, bool bullet)
 	}
 }
 
-void parseLine(char* line, vector<btVector3>* vertice)
+void parseLine(char* line, std::vector<btVector3>* vertice)
 {
 	char* nextToken = NULL;
 
@@ -67,7 +67,7 @@ void parseLine(char* line, vector<btVector3>* vertice)
 	vertice->push_back(*data);
 }
 
-ModelFileHandler::ModelFileHandler(char* filename, char texture)
+ModelFileHandler::ModelFileHandler(std::wstring filename, char texture)
 {
 	void parseLine(char* line, AngryClone::VertexPositionTextureCoord* result, int);
 
@@ -93,7 +93,6 @@ ModelFileHandler::ModelFileHandler(char* filename, char texture)
 				ModelFile->getline(buffer, 64);
 
 				parseLine(buffer, &this->TexturedVertices[VerticesCount - i], i);
-				//////
 			}
 
 			this->VerticesBufferSize = sizeof(AngryClone::VertexPositionTextureCoord) * VerticesCount;
@@ -113,13 +112,13 @@ ModelFileHandler::ModelFileHandler(char* filename, char texture)
 				ModelFile->getline(buffer, 64);
 
 				char *nextToken = NULL;
-				this->Indices[j] = stoi(strtok_s(buffer, ",", &nextToken));
+				this->Indices[j] = std::stoi(strtok_s(buffer, ",", &nextToken));
 				j++;
 
 				int iteration = 2;
 				while (iteration > 0)
 				{
-					this->Indices[j] = stoi(strtok_s(NULL, ",", &nextToken));
+					this->Indices[j] = std::stoi(strtok_s(NULL, ",", &nextToken));
 					j++;
 					iteration--;
 				}
@@ -138,7 +137,7 @@ ModelFileHandler::ModelFileHandler(char* filename, char texture)
 
 }
 
-ModelFileHandler::ModelFileHandler(char* fileName)
+ModelFileHandler::ModelFileHandler(std::wstring fileName)
 {
 	void parseLine(char* line, AngryClone::VertexPositionColor* result);
 
@@ -184,13 +183,13 @@ ModelFileHandler::ModelFileHandler(char* fileName)
 				ModelFile->getline(buffer, 64);
 				
 				char *nextToken = NULL;
-				this->Indices[j] = stoi(strtok_s(buffer, ",", &nextToken));
+				this->Indices[j] = std::stoi(strtok_s(buffer, ",", &nextToken));
 				j++;
 
 				int iteration = 2;
 				while (iteration > 0)
 				{
-					this->Indices[j] = stoi(strtok_s(NULL, ",", &nextToken));
+					this->Indices[j] = std::stoi(strtok_s(NULL, ",", &nextToken));
 					j++;
 					iteration--;
 				}
@@ -264,20 +263,20 @@ long ModelFileHandler::getVerticesBufferSize()
 	return this->VerticesBufferSize;
 }
 
-vector<btVector3>* ModelFileHandler::getVerticesVeñtor()
+std::vector<btVector3>* ModelFileHandler::getVerticesVeñtor()
 {
 	return &(this->VerticesVeñtor);
 }
 
-vector<unsigned short>* ModelFileHandler::getIndicesVector()
+std::vector<unsigned short>* ModelFileHandler::getIndicesVector()
 {
 	return &this->IndicesVector;
 }
 
 ModelFileHandler::~ModelFileHandler()
 {
-	delete ModelFile;
+	/*delete ModelFile;
 	delete[] Vertices;
 	delete[] Indices;
-	delete[] TexturedVertices;
+	delete[] TexturedVertices;*/
 }

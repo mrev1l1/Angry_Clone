@@ -12,71 +12,32 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\DeviceResources.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Content\Sample3DSceneRenderer.h">
-      <Filter>Content</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Content\SampleFpsTextRenderer.h">
       <Filter>Content</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Direct3DBase.h">
-      <Filter>Merger</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)CubeRenderer.h">
-      <Filter>Merger</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ModelFileHandler.h">
       <Filter>Model_Loader</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Cube.h">
-      <Filter>Level_1</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)CubeMotionState.h">
-      <Filter>Level_1</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Level.h">
-      <Filter>Level_1</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)MyRenderer.h">
       <Filter>Level_1</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Physics.h">
       <Filter>Level_1</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ExtraLargeRectangleRenderer.h">
-      <Filter>Level_1</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)SmallRectangleRenderer.h">
-      <Filter>Level_1</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NormallRectangleRenderer.h">
-      <Filter>Level_1</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)LargeRectangleRenderer.h">
-      <Filter>Level_1</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Ammo.h">
-      <Filter>Level_1</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)AmmoMotionState.h">
-      <Filter>Level_1</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)AmmoRenderer.h">
-      <Filter>Level_1</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)PseudoSphereRenderer.h">
-      <Filter>Level_1</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)PseudoSphereMotionState.h">
-      <Filter>Level_1</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)PseudoSphere.h">
-      <Filter>Level_1</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)BasicReaderWriter.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)DDSTextureLoader_old.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Direct3DBase.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SceneObject.h">
+      <Filter>Level_1</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SceneObjectMotionState.h">
+      <Filter>Level_1</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SceneObjectRenderer.h">
+      <Filter>Level_1</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -85,71 +46,32 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Common\DeviceResources.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Content\Sample3DSceneRenderer.cpp">
-      <Filter>Content</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Content\SampleFpsTextRenderer.cpp">
       <Filter>Content</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Direct3DBase.cpp">
-      <Filter>Merger</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)CubeRenderer.cpp">
-      <Filter>Merger</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ModelFileHandler.cpp">
       <Filter>Model_Loader</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Cube.cpp">
-      <Filter>Level_1</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)CubeMotionState.cpp">
-      <Filter>Level_1</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Level.cpp">
-      <Filter>Level_1</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)MyRenderer.cpp">
       <Filter>Level_1</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Physics.cpp">
       <Filter>Level_1</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ExtraLargeRectangleRenderer.cpp">
-      <Filter>Level_1</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)SmallRectangleRenderer.cpp">
-      <Filter>Level_1</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NormallRectangleRenderer.cpp">
-      <Filter>Level_1</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)LargeRectangleRenderer.cpp">
-      <Filter>Level_1</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Ammo.cpp">
-      <Filter>Level_1</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)AmmoMotionState.cpp">
-      <Filter>Level_1</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)AmmoRenderer.cpp">
-      <Filter>Level_1</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)PseudoSphereRenderer.cpp">
-      <Filter>Level_1</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)PseudoSphereMotionState.cpp">
-      <Filter>Level_1</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)PseudoSphere.cpp">
-      <Filter>Level_1</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)BasicReaderWriter.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)DDSTextureLoader_old.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Direct3DBase.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SceneObject.cpp">
+      <Filter>Level_1</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SceneObjectMotionState.cpp">
+      <Filter>Level_1</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SceneObjectRenderer.cpp">
+      <Filter>Level_1</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -172,9 +94,6 @@
     </Filter>
     <Filter Include="Content">
       <UniqueIdentifier>{4a206efb-067c-43d0-812f-b5555ae85039}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Merger">
-      <UniqueIdentifier>{86d2f10f-1557-45d6-b391-bc1f3b2fb47c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Model_Loader">
       <UniqueIdentifier>{361438fd-609d-4814-bba8-519ed066cfcb}</UniqueIdentifier>
